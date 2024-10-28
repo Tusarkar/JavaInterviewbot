@@ -83,7 +83,7 @@ def format_answer(answer):
 # Streamlit UI
 
 st.title("Question Answer Bot")
-user_question = st.text_input("Ask a question:")
+user_question = st.text_input("Java interview questions:")
 
 if user_question:
     answer = find_answer(user_question)
