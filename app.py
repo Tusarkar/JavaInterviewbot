@@ -83,10 +83,18 @@ def format_answer(answer):
 # Streamlit UI
 
 st.title("Question Answer Bot")
-user_question = st.text_input("Java interview questions:")
-
+# Check if a question is passed as a query parameter
 query_params = st.experimental_get_query_params()
 if "question" in query_params:
+    # Get the question from the query parameter
     user_question = query_params["question"][0]
     answer = find_answer(user_question)
-    st.json({"answer": answer})  # Return the answer in JSON format
+    formatted_answer = format_answer(answer)
+    st.json({"question": user_question, "answer": formatted_answer})  # Return the answer in JSON format
+else:
+    # If no query parameter, show a text input
+    user_question = st.text_input("Java interview questions:")
+    if user_question:
+        answer = find_answer(user_question)
+        formatted_answer = format_answer(answer)
+        st.write(f"Answer: {formatted_answer}")
