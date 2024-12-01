@@ -85,7 +85,8 @@ def format_answer(answer):
 st.title("Question Answer Bot")
 user_question = st.text_input("Java interview questions:")
 
-if user_question:
+query_params = st.experimental_get_query_params()
+if "question" in query_params:
+    user_question = query_params["question"][0]
     answer = find_answer(user_question)
-    formatted_answer = format_answer(answer)
-    st.write(f"Answer: {formatted_answer}")
+    st.json({"answer": answer})  # Return the answer in JSON format
